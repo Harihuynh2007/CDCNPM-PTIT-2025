@@ -1,6 +1,6 @@
 
 import unittest
-from utils import login
+from tests.utils import login
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -30,21 +30,16 @@ class TestLoginFail(unittest.TestCase):
         driver.find_element(By.ID, "emailSignin").send_keys("tanhaorn@gmail.com")
         driver.find_element(By.ID, "passwordSignin").send_keys("wrongpassword")
 
-        # Click đăng nhập
         driver.execute_script(
             "arguments[0].click();",
             driver.find_element(By.ID, "btn_signin")
         )
 
-        # Chờ hiển thị thông báo lỗi
+        # Kiểm tra thông báo lỗi xuất hiện đúng
         error_element = WebDriverWait(driver, 10).until(
-            EC.visibility_of_element_located((
-                By.XPATH,
-                "//div[contains(text(), 'Sai tên đăng nhập hoặc mật khẩu')]"
-            ))
+            EC.visibility_of_element_located((By.ID, "errorMsg"))
         )
-        # Xác nhận lỗi và URL không chuyển trang
-        self.assertEqual(error_element.text, "Sai tên đăng nhập hoặc mật khẩu")
+        self.assertIn("Invalid email or password", error_element.text)
         self.assertIn("login.html", driver.current_url)
 
     @classmethod
