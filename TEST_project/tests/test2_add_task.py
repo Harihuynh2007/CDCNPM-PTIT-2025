@@ -27,6 +27,12 @@ class TestAddTask(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.invisibility_of_element_located((By.ID, "preloader")))
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "main-content")))
 
+
+        existing = driver.find_elements(By.XPATH, "//p[text()='Học Selenium']")
+        for e in existing:
+            driver.execute_script("arguments[0].click();", e.find_element(By.XPATH, ".//ancestor::div[contains(@class,'task-item')]//i[contains(@class,'task-item-trash')]"))
+            WebDriverWait(driver, 5).until_not(EC.presence_of_element_located((By.XPATH, "//p[text()='Học Selenium']")))
+
         # Click vào nút '+' trên bảng "To do"
         add_task_button = WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable((By.XPATH, "//i[@class='fas fa-plus board-header-icon' and @data-status='todo']"))
@@ -56,13 +62,13 @@ class TestAddTask(unittest.TestCase):
 
         # Kiểm tra công việc mới xuất hiện trong danh sách "To do"
         task_list = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.XPATH, "//div[contains(text(), 'Học Selenium')]"))
+            EC.presence_of_element_located((By.XPATH, "//p[text()='Học Selenium']"))
         )
         self.assertTrue(task_list)
 
     @classmethod
     def tearDownClass(cls):
-        time.sleep(3)
+        time.sleep(2)
         cls.driver.quit()
 
 if __name__ == "__main__":
