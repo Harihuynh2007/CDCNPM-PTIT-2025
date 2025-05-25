@@ -24,16 +24,16 @@ class TestLogin(unittest.TestCase):
         driver.find_element(By.ID, "passwordSignin").send_keys("123456ae")
 
         # Đợi preloader biến mất nếu có
-        WebDriverWait(driver, 10).until(EC.invisibility_of_element((By.ID, "preloader")))
+        WebDriverWait(driver, 10).until(EC.invisibility_of_element_located((By.ID, "preloader")))
 
         # Click nút đăng nhập
         login_button = driver.find_element(By.ID, "btn_signin")
         driver.execute_script("arguments[0].click();", login_button)
 
         # Kiểm tra đăng nhập thành công
-        WebDriverWait(driver, 10).until(EC.title_contains("TodoManager"))
+        WebDriverWait(driver, 10).until(EC.title_contains("Dashboard"))
 
-        self.assertIn("TodoManager", driver.title)
+        self.assertIn("Dashboard", driver.title)
     
     @classmethod
     def tearDownClass(cls):

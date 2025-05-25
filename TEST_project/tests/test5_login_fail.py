@@ -1,5 +1,6 @@
 
 import unittest
+from utils import login
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -48,7 +49,8 @@ class TestLoginFail(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        cls.driver.quit(1)
+        cls.driver.quit()
+
 
 
 if __name__ == "__main__":

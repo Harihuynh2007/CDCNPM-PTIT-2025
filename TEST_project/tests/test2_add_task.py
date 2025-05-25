@@ -43,7 +43,7 @@ class TestAddTask(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, "title"))).send_keys("Học Selenium")
         WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, "category"))).send_keys("Kiểm thử")
         WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, "description"))).send_keys("Làm bài tập kiểm thử tự động")
-        WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, "due_date"))).send_keys("2025-02-26")
+        
 
         # Sửa lỗi nhập ngày
         valid_date = (datetime.now() + timedelta(days=1)).strftime("%Y-%m-%d")

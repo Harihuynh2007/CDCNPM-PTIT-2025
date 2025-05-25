@@ -7,8 +7,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-DASHBOARD_URL = "hhttp://127.0.0.1:5500/TodoManager/dashboard.html"
-
+DASHBOARD_URL = "http://127.0.0.1:5500/TodoManager/dashboard.html"
 def wait_for_index(driver, timeout=10):
     WebDriverWait(driver, timeout).until(EC.url_contains("dashboard.html"))
     WebDriverWait(driver, timeout).until(EC.invisibility_of_element_located((By.ID, "preloader")))
