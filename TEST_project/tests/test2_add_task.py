@@ -28,13 +28,11 @@ class TestAddTask(unittest.TestCase):
         WebDriverWait(driver, 10).until(EC.invisibility_of_element_located((By.ID, "preloader")))
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "main-content")))
 
-
         existing = driver.find_elements(By.XPATH, "//p[text()='Học Selenium']")
         for e in existing:
             driver.execute_script("arguments[0].click();", e.find_element(By.XPATH, ".//ancestor::div[contains(@class,'task-item')]//i[contains(@class,'task-item-trash')]"))
             WebDriverWait(driver, 5).until_not(EC.presence_of_element_located((By.XPATH, "//p[text()='Học Selenium']")))
 
-        # Click vào nút '+' trên bảng "To do"
         add_task_button = WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable((By.XPATH, "//i[@class='fas fa-plus board-header-icon' and @data-status='todo']"))
         )
@@ -46,12 +44,10 @@ class TestAddTask(unittest.TestCase):
         )
         time.sleep(1)
 
-        # Nhập thông tin công việc
         WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, "title"))).send_keys("Học Selenium")
         WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, "category"))).send_keys("Kiểm thử")
         WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, "description"))).send_keys("Làm bài tập kiểm thử tự động")
         
-
         # Sửa lỗi nhập ngày
         valid_date = (datetime.now() + timedelta(days=1)).strftime("%Y-%m-%d")
         due_date_input = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "due_date")))
